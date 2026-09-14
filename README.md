@@ -92,11 +92,11 @@ Hello-Agents-Code-Explanation
 
 按照教材"自顶向下"的思路，用 PyTorch 从零搭出完整的 **Encoder-Decoder Transformer**：先搭 `EncoderLayer / DecoderLayer` 骨架，再像拼拼图一样逐一填充**多头注意力**（Q/K/V"开卷考试"）、**逐位置前馈网络**、**位置编码**（sin/cos 公式）等模块，并补全了教材未给出的 Encoder/Decoder 堆叠与因果掩码，让整套代码可以完整运行、逐步验证。
 
-![Transformer 整体架构（教材图 3.4）](./第三章/Transformer/assets/fig3.4-arch.png)
+![Transformer 整体架构（教材图 3.4）](assets/fig3.4-arch.png)
 
 演示程序会把**注意力权重矩阵**打印出来，可这张 5×5 的表到底该怎么读、那些挤在 `0.2` 附近的数字又意味着什么？下面这张图一次讲清：
 
-![注意力权重矩阵怎么读：行是"谁在问"，列是"在看谁"](./第三章/Transformer/assets/attn-weight-howto-read.png)
+![注意力权重矩阵怎么读：行是"谁在问"，列是"在看谁"](assets/attn-weight-howto-read.png)
 
 > 💡 讲解文档里点出了教材骨架留下的一个坑：`EncoderLayer` 里 `MultiHeadAttention()` / `PositionWiseFeedForward()` 是**无参调用**，而它们真实的 `__init__` 需要 `d_model, num_heads, …`，照抄骨架再拼实现会直接报 `TypeError`。文档给出了定位过程与修复方案。
 
