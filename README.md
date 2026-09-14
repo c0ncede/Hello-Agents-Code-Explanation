@@ -111,6 +111,16 @@ git clone https://github.com/<你的用户名>/Hello-Agents-Code-Explanation.git
 cd Hello-Agents-Code-Explanation
 ```
 
+**第一章（旅行助手）需要配置模型与搜索服务：**
+
+```bash
+cd 第一章
+pip install -r requirements.txt
+copy .env.example .env        # macOS/Linux 用 cp .env.example .env
+# 编辑 .env，填入下表中的配置
+python main.py
+```
+
 **第二章（ELIZA）无需任何 API**，直接运行：
 
 ```bash
@@ -126,15 +136,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
-**第一章（旅行助手）需要配置模型与搜索服务：**
-
-```bash
-cd 第一章
-pip install -r requirements.txt
-copy .env.example .env        # macOS/Linux 用 cp .env.example .env
-# 编辑 .env，填入下表中的配置
-python main.py
-```
 
 ### 🔑 环境变量说明（写入 `第一章/.env`）
 
@@ -166,12 +167,6 @@ python main.py
 - [ ] 第十四章 综合项目：自动化深度研究智能体
 - [ ] 第十五章 综合项目：构建赛博小镇
 - [ ] 第十六章 毕业设计：构建属于你的多智能体应用
-
-## ⚠️ 安全提示
-
-- `第一章/.env` 存有真实 API Key，已被 `.gitignore` 排除，**请勿提交到 GitHub**；
-- 提交前可用 `git ls-files` 确认 `.env` 不在版本库中；
-- 一旦 Key 泄露，请立即到服务商后台吊销并更换。
 
 ## 🤝 参与贡献
 
