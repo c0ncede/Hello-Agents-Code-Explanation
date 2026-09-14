@@ -1,0 +1,9 @@
+# 《Hello Agents》3.1.2 Transformer 架构解析 —— 运行依赖
+#
+# 只需要 PyTorch。演示程序纯 CPU、无 GPU、无联网、无需任何 API Key。
+torch>=1.13
+
+# 安装（CPU 版，推荐，体积更小）：
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# 或直接：
+#   pip install -r requirements.txt
