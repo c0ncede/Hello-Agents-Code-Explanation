@@ -42,6 +42,13 @@ Hello-Agents-Code-Explanation
 ├── 第二章/                          # 智能体发展史：规则聊天机器人（2.2 节）
 │   ├── main.py                     # ELIZA 风格聊天机器人
 │   └── 代码讲解.md                  # 📄 第二章讲解文档
+├── 第三章/                          # 大语言模型基础（3.1.2 节）
+│   └── Transformer/                 # Transformer 架构解析
+│       ├── transformer.py          # Transformer 全模块实现（注意力 / FFN / 位置编码等）
+│       ├── main.py                 # 演示程序：前向传播 / 因果掩码 / 位置编码实验
+│       ├── requirements.txt
+│       ├── 代码讲解.md              # 📄 第三章讲解文档
+│       └── assets/                 # 教材图 3.4 / 图 3.5、注意力权重矩阵读法图
 └── assets/                          # README 配图
 ```
 
@@ -81,6 +88,22 @@ Hello-Agents-Code-Explanation
 📄 **讲解文档**：[第二章/代码讲解.md](./第二章/代码讲解.md)
 > 💡 文档里还发现了原代码的一个隐藏 Bug：兜底回复的 `return` 缩进在 `for` 循环内，导致除第一条规则外的规则永远不会被尝试。文档给出了定位过程与修复方案。
 
+### 03 · 第三章 大语言模型基础 —— Transformer 架构解析（3.1.2）
+
+按照教材"自顶向下"的思路，用 PyTorch 从零搭出完整的 **Encoder-Decoder Transformer**：先搭 `EncoderLayer / DecoderLayer` 骨架，再像拼拼图一样逐一填充**多头注意力**（Q/K/V"开卷考试"）、**逐位置前馈网络**、**位置编码**（sin/cos 公式）等模块，并补全了教材未给出的 Encoder/Decoder 堆叠与因果掩码，让整套代码可以完整运行、逐步验证。
+
+![Transformer 整体架构（教材图 3.4）](./第三章/Transformer/assets/fig3.4-arch.png)
+
+演示程序会把**注意力权重矩阵**打印出来，可这张 5×5 的表到底该怎么读、那些挤在 `0.2` 附近的数字又意味着什么？下面这张图一次讲清：
+
+![注意力权重矩阵怎么读：行是"谁在问"，列是"在看谁"](./第三章/Transformer/assets/attn-weight-howto-read.png)
+
+> 💡 讲解文档里点出了教材骨架留下的一个坑：`EncoderLayer` 里 `MultiHeadAttention()` / `PositionWiseFeedForward()` 是**无参调用**，而它们真实的 `__init__` 需要 `d_model, num_heads, …`，照抄骨架再拼实现会直接报 `TypeError`。文档给出了定位过程与修复方案。
+
+📄 **讲解文档**：[第三章/Transformer/代码讲解.md](./第三章/Transformer/代码讲解.md)（含教材图 3.4 / 图 3.5、注意力权重矩阵读法图、张量形状速查表、四个演示实验与易踩的坑）
+
+> ⚙️ 本章需要 PyTorch：`pip install -r 第三章/Transformer/requirements.txt`
+
 ## 🚀 快速开始
 
 ```bash
@@ -92,6 +115,14 @@ cd Hello-Agents-Code-Explanation
 
 ```bash
 cd 第二章
+python main.py
+```
+
+**第三章（Transformer）需要 PyTorch**，无需任何 API：
+
+```bash
+cd 第三章/Transformer
+pip install -r requirements.txt
 python main.py
 ```
 
@@ -121,7 +152,7 @@ python main.py
 
 - [x] 第一章 初识智能体 —— 智能旅行助手（1.3 动手体验）
 - [x] 第二章 智能体发展史 —— 基于规则的聊天机器人（2.2）
-- [ ] 第三章 大语言模型基础
+- [x] 第三章 大语言模型基础 —— Transformer 架构解析（3.1.2）
 - [ ] 第四章 智能体经典范式构建（ReAct / Plan-and-Solve / Reflection）
 - [ ] 第五章 基于低代码平台的智能体搭建（Coze / Dify / FastGPT / n8n）
 - [ ] 第六章 框架开发实践（AutoGen / AgentScope / CAMEL / LangGraph）
